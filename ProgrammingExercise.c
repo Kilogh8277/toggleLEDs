@@ -79,16 +79,6 @@ int main(void) {
 		
 		sprintf(message, "You entered: %d\r\n", InterruptPeriod);
 		NU32_WriteUART3(message);
-		
-		if (InterruptPeriod > INTERRUPTPERIOD_1kHz) {
-			priority = 0;
-			PR1 = 312499;
-		}
-		else {
-			priority = 1;
-			PR1 = InterruptPeriod;
-		}
 	}
 	return 0;
-	
 }
