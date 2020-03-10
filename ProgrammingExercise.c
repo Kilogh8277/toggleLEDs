@@ -8,7 +8,7 @@ volatile int InterruptFreq; // Initially, Timer2 will interrupt more quickly
 
 char warning_msg[100] = {};
 
-void __ISR(_TIMER_2_VECTOR, IPL6SRS) Timer2ISR(void) {		
+void __ISR(_TIMER_3_VECTOR, IPL6SRS) Timer3ISR(void) {		
 	sprintf(warning_msg, "In Interrupt 1\r\n");
 	NU32_WriteUART3(warning_msg);
 	
@@ -18,10 +18,10 @@ void __ISR(_TIMER_2_VECTOR, IPL6SRS) Timer2ISR(void) {
 	else {
 		LATFINV = 0x2;
 	}	
-	IFS0bits.T2IF = 0; // Clear flag for Timer2
+	IFS0bits.T3IF = 0; // Clear flag for Timer2
 }
 
-void __ISR(_TIMER_4_VECTOR, IPL5SOFT) Timer4ISR(void) {
+void __ISR(_TIMER_5_VECTOR, IPL5SOFT) Timer5ISR(void) {
 	sprintf(warning_msg, "In Interrupt 2\r\n");
 	NU32_WriteUART3(warning_msg);
 	if (priority == 0) {
@@ -30,7 +30,7 @@ void __ISR(_TIMER_4_VECTOR, IPL5SOFT) Timer4ISR(void) {
 	else {
 		LATFINV = 0x1;
 	}	
-	IFS0bits.T4IF = 0; // Clear flag for Timer4
+	IFS0bits.T5IF = 0; // Clear flag for Timer4
 }
 
 int main(void) {
