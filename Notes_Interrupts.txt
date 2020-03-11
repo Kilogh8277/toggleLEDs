@@ -1,0 +1,25 @@
+When using the 32-bit timer with the PIC32, you must configure the bits for Timer2 and/or Timer4 accordingly. 
+
+For example:
+
+T2CONbits.T32 = 1; // Initialize 32-bit timer
+
+The PRx value is set by the even numbered Timer, as well as the starting count. 
+
+For example:
+
+PR2 = 80000000; // 80,000,000 ticks = (PR1 + 1) * 1 <-- Prescalar
+TMR2 = 0; // Initialize count to 0
+
+However, the interrupt will be tripped by the odd numbered Timer. So those bits must be the one that are enabled.
+
+For example:
+
+IPC3bits.T3IP = 6; // Priority level 6 (SRS)
+IPC3bits.T3IS = 0; // Don't care about the subpriority level
+IFS0bits.T3IF = 0; // Clear flag for Timer2
+IEC0bits.T3IE = 1; // Enable Timer2 interrupt
+
+ANOTHER NOTE:
+
+The PBCLK runs at 80 MHz.
